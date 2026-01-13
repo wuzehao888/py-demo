@@ -1,11 +1,30 @@
-#字母移位
+def caesar(text, shift, encrypt=True):
+    """
+    凯撒密码
+    :param text: 文本
+    :param shift: 字母移动的位数
+    :param encrypt: 是否加密
+    """
+    if not isinstance(shift, int):
+        return 'Shift must be an integer value.'
 
-alphabet = 'abcdefghijklmnopqrstuvwxyz'
-shift = 5
-new_alphabet = alphabet[shift:] + alphabet[:shift]
-#创建字符转换表
-translation_table = str.maketrans(alphabet,new_alphabet)
-text = "hello world"
-#字符转换
-encrypted_text = text.translate(translation_table)
-print(encrypted_text)
+    if shift < 1 or shift > 25:
+        return 'Shift must be an integer between 1 and 25.'
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    if not encrypt:
+        shift = - shift
+
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+    encrypted_text = text.translate(translation_table)
+    return encrypted_text
+
+
+def encrypt(text, shift):
+    return caesar(text, shift)
+
+
+def decrypt(text, shift):
+    return caesar(text, shift, encrypt=False)
