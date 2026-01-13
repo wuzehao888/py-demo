@@ -1,3 +1,6 @@
+import string
+
+
 def caesar(text, shift, encrypt=True):
     """
     凯撒密码
@@ -11,7 +14,7 @@ def caesar(text, shift, encrypt=True):
     if shift < 1 or shift > 25:
         return 'Shift must be an integer between 1 and 25.'
 
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet = string.ascii_lowercase
 
     if not encrypt:
         shift = - shift
@@ -28,3 +31,7 @@ def encrypt(text, shift):
 
 def decrypt(text, shift):
     return caesar(text, shift, encrypt=False)
+
+
+if __name__ == '__main__':
+    print(encrypt("hello world", 5))
